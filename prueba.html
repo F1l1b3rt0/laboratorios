@@ -10,31 +10,82 @@
             var formulario = document.getElementById("formulario");
             formulario.innerHTML = ""; // Limpiar contenido anterior
 
-            if (seleccion) {
-                var input = document.createElement("input");
-                input.type = "text";
-                input.id = "datoIngresado";
-                input.placeholder = "Ingresa tu dato aquí";
+            switch (seleccion) {
+                case "cuadrado":
+                    formulario.innerHTML = '<label for="lado">Lado:</label><input type="number" id="lado"><br>';
+                    formulario.innerHTML += '<button type="button" onclick="mostrarResultado()">Calcular área</button>';
+                    break;
 
-                formulario.appendChild(input);
-                formulario.innerHTML += '<br><button type="button" onclick="mostrarResultado()">Mostrar Resultado</button>';
+                case "rectangulo":
+                    formulario.innerHTML = '<label for="base">Base:</label><input type="number" id="base"><br>';
+                    formulario.innerHTML += '<label for="altura">Altura:</label><input type="number" id="altura"><br>';
+                    formulario.innerHTML += '<button type="button" onclick="mostrarResultado()">Calcular área</button>';
+                    break;
+
+                case "triangulo":
+                    formulario.innerHTML = '<label for="base">Base:</label><input type="number" id="baseTriangulo"><br>';
+                    formulario.innerHTML += '<label for="altura">Altura:</label><input type="number" id="alturaTriangulo"><br>';
+                    formulario.innerHTML += '<button type="button" onclick="mostrarResultado()">Calcular área</button>';
+                    break;
+
+                case "circulo":
+                    formulario.innerHTML = '<label for="radio">Radio:</label><input type="number" id="radio"><br>';
+                    formulario.innerHTML += '<button type="button" onclick="mostrarResultado()">Calcular área</button>';
+                    break;
+
+                default:
+                    // No hacer nada si no hay opción seleccionada
+                    break;
             }
         }
 
         function mostrarResultado() {
-            var dato = document.getElementById("datoIngresado").value;
+            var seleccion = document.getElementById("opciones").value;
             var resultado = document.getElementById("resultado");
-            resultado.innerHTML = "Has ingresado: " + dato;
+            var area;
+
+            switch (seleccion) {
+                case "cuadrado":
+                    var lado = document.getElementById("lado").value;
+                    area = lado * lado;
+                    resultado.innerHTML = "Área del cuadrado: " + area;
+                    break;
+
+                case "rectangulo":
+                    var base = document.getElementById("base").value;
+                    var altura = document.getElementById("altura").value;
+                    area = base * altura;
+                    resultado.innerHTML = "Área del rectángulo: " + area;
+                    break;
+
+                case "triangulo":
+                    var baseTriangulo = document.getElementById("baseTriangulo").value;
+                    var alturaTriangulo = document.getElementById("alturaTriangulo").value;
+                    area = (baseTriangulo * alturaTriangulo) / 2;
+                    resultado.innerHTML = "Área del triángulo: " + area;
+                    break;
+
+                case "circulo":
+                    var radio = document.getElementById("radio").value;
+                    area = Math.PI * radio * radio;
+                    resultado.innerHTML = "Área del círculo: " + area.toFixed(2);
+                    break;
+
+                default:
+                    resultado.innerHTML = "Por favor selecciona una figura.";
+                    break;
+            }
         }
     </script>
 </head>
 <body>
-    <h1>Selecciona una opción y ingresa un dato</h1>
+    <h1>Selecciona una opción y calcula el área</h1>
     <select id="opciones" onchange="mostrarFormulario()">
         <option value="">Selecciona...</option>
-        <option value="opcion1">Opción 1</option>
-        <option value="opcion2">Opción 2</option>
-        <option value="opcion3">Opción 3</option>
+        <option value="cuadrado">Cuadrado</option>
+        <option value="rectangulo">Rectangulo</option>
+        <option value="triangulo">Triangulo</option>
+        <option value="circulo">Circulo</option>
     </select>
 
     <div id="formulario"></div>
