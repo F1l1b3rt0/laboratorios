@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Dinámico</title>
+    <script>
+        function mostrarFormulario() {
+            var seleccion = document.getElementById("opciones").value;
+            var formulario = document.getElementById("formulario");
+            formulario.innerHTML = ""; // Limpiar contenido anterior
+
+            if (seleccion) {
+                var input = document.createElement("input");
+                input.type = "text";
+                input.id = "datoIngresado";
+                input.placeholder = "Ingresa tu dato aquí";
+
+                formulario.appendChild(input);
+                formulario.innerHTML += '<br><button type="button" onclick="mostrarResultado()">Mostrar Resultado</button>';
+            }
+        }
+
+        function mostrarResultado() {
+            var dato = document.getElementById("datoIngresado").value;
+            var resultado = document.getElementById("resultado");
+            resultado.innerHTML = "Has ingresado: " + dato;
+        }
+    </script>
+</head>
+<body>
+    <h1>Selecciona una opción y ingresa un dato</h1>
+    <select id="opciones" onchange="mostrarFormulario()">
+        <option value="">Selecciona...</option>
+        <option value="opcion1">Opción 1</option>
+        <option value="opcion2">Opción 2</option>
+        <option value="opcion3">Opción 3</option>
+    </select>
+
+    <div id="formulario"></div>
+    <div id="resultado"></div>
+</body>
+</html>
